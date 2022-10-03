@@ -21,11 +21,10 @@ var allowCrossDomain = function (req, res, next) {
 app.use(allowCrossDomain);
 
 app.get("/", async (req, res) => {
-	res.send(
-		new Promise((resolve) =>
-			fs.readFile("./wl.json", "utf8", (err, data) => resolve(data))
-		)
+	const data = await new Promise((resolve) =>
+		fs.readFile("./wl.json", "utf8", (err, data) => resolve(data))
 	);
+	res.send(data);
 });
 
 const PORT = process.env.PORT || 8092;
